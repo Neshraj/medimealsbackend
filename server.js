@@ -8,7 +8,13 @@ const login = require('./functions/login');
 const getAllPatientDetails = require('./functions/getPatientData');
 const updatePatientDetail = require('./functions/updatePatientdata');
 const getMealPlans = require('./functions/getMealData');
-const updateMealData = require('./functions/updateMealData');  
+const updateMealData = require('./functions/updateMealData');
+const getPantryStafdetails = require('./functions/getPantryStafdetails'); 
+const updatePantryStaffData = require('./functions/updatePantryStaffData');  
+const removePantryStaff = require('./functions/removePantryStaff');
+const assignTask = require('./functions/assignTask');   
+const getTasks = require('./functions/getTasks'); 
+const getAllTasks = require('./functions/getAllTasks');  
 
 app.use(cors());
 app.use(express.json());
@@ -61,6 +67,60 @@ app.put("/updatemealplane", async (req, res) => {
         res.json({ message: response });
     }
     update();
+});
+
+app.get("/getpantrystaffdata", async (req, res) => {
+
+    async function getdata(){
+        const response = await getPantryStafdetails();
+        res.json(response);
+    }
+    getdata();
+
+});
+
+app.post("/pantry-staff", async (req, res) => {
+    const staffdata = req.body;
+    async function update() {
+        const response = await updatePantryStaffData(staffdata);
+        res.json({message:response});
+    }
+    update();
+});
+
+app.delete('/removepantrystaff', async (req, res) => {
+    const staffdata = req.body;
+    async function remove() {
+        const response = await removePantryStaff(staffdata);
+        res.json({message:response});
+    }
+    remove();
+});
+
+app.post("/assignTask", async (req, res) => {
+    const task = req.body;
+    async function assign() {
+        const response = await assignTask(task);
+        res.json({ message: response });
+    }
+    assign();
+});
+
+app.post("/getTasks", async (req, res) => {
+    const {email} = req.body;
+    async function getTask() {
+        const response = await getTasks(email);
+        res.json(response);
+    }
+    getTask();
+});
+
+app.get("/getAllTasks", async (req, res) => {
+    async function getTask() {
+        const response = await getAllTasks();
+        res.json(response);
+    }
+    getTask();
 });
 
 
