@@ -1,4 +1,4 @@
-async function getAllTasks() {
+async function getDeliveryTasks(email) {
   const { MongoClient } = require("mongodb");
 
   const client = new MongoClient(
@@ -10,16 +10,17 @@ async function getAllTasks() {
     const database = client.db("MediMeals");
     const collection = database.collection("allTaskData");
 
-    const tasks = await collection.find({}).toArray();
-    console.log("All tasks retrieved successfully");
+    const tasks = await collection.find({ deliveryId: email }).toArray();
+    console.log("Tasks retrieved successfully");
+    console.log(email);
 
     return tasks;
   } catch (error) {
-    console.log("Error retrieving all tasks");
+    console.log("Error retrieving tasks");
     return [];
   } finally {
     await client.close();
   }
 }
 
-module.exports = getAllTasks;
+module.exports = getDeliveryTasks;

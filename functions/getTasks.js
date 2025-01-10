@@ -1,5 +1,5 @@
-async function getTasks(email){
-    const { MongoClient } = require("mongodb");
+async function getTasks(email) {
+  const { MongoClient } = require("mongodb");
 
   const client = new MongoClient(
     "mongodb+srv://neshraj:2019109164@cluster0.2ab39qh.mongodb.net/?retryWrites=true&w=majority"
@@ -13,15 +13,14 @@ async function getTasks(email){
     const tasks = await collection.find({ pantryId: email }).toArray();
     console.log("Tasks retrieved successfully");
     console.log(email);
-    
-    
+
     return tasks;
   } catch (error) {
-    console.log("Error retrieving tasks"); 
+    console.log("Error retrieving tasks");
     return [];
   } finally {
     await client.close();
   }
 }
 
-module.exports = getTasks; 
+module.exports = getTasks;

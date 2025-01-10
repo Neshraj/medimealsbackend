@@ -18,7 +18,6 @@ async function updateMealData(mealdata) {
       { upsert: true }
     );
     return "Meal plan updated successfully";
-    
   } catch (error) {
     return "Error updating meal plan:";
   } finally {
