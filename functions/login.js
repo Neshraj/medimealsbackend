@@ -31,7 +31,7 @@ async function login(data) {
       return "Login success for delivery";
     }
 
-    return "User not found in any collection";
+    return "User not found";
   } catch (error) {
     return "There is a problem in logging in. Try again later";
   } finally {
