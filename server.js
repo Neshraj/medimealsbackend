@@ -142,7 +142,7 @@ app.post("/assignTask", async (req, res) => {
   const task = req.body;
   async function assign() {
     const response = await assignTask(task);
-    io.emit("taskUpdated", task); // Notify all connected clients
+    io.emit("taskUpdated", task);
     res.json({ message: response });
   }
   assign();
@@ -178,10 +178,12 @@ app.get("/getAllTasks", async (req, res) => {
 
 app.post("/updateTaskStatus", async (req, res) => {
   const task = req.body;
+  console.log('data : ',task);
+  
   async function update() {
     const response = await updateTaskStatus(task);
     if (response) {
-      io.emit("taskUpdated", task); // Notify all connected clients
+      io.emit("taskUpdated", task);
       res.json({ message: response });
     } else {
       res.status(400).json({ message: "Failed to update task" });
